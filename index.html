@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Secret Translator</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <style>
+    body {
+      background: #fff8fc;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      color: #333;
+    }
+    h1 {
+      color: #d63384;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 40px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      width: 300px;
+    }
+    input, button, select {
+      margin: 8px;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #d63384;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #c2185b;
+    }
+    .resultado {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #d63384;
+    }
+    .footer-note {
+      margin: 20px auto 0;
+      width: fit-content;
+      color: #666;
+      font-size: 10px;
+      font-style: italic;
+    }
+    .footer-note1 {
+      margin: 20px auto 0;
+      width: fit-content;
+      color: #666;
+      font-size: 14px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ein Übersetzer nur für dich</h1>
+  <div class="footer-note1"> Yep, I used a translator, don't judge me.  </div>
+  <div class="card">Mit viel Liebe für meinen Bärchen 🐻💕</div>
+  
+  <div class="card">
+    <p>Wähle aus, was du tun möchtest:</p>
+    <select id="modo">
+      <option value="1">Wort → binär</option>
+      <option value="2">Binär → wort</option>
+    </select>
+    <br>
+    <input type="text" id="entrada" placeholder="love u, now write...">
+    <br>
+    <button onclick="traducir()">Übersetzen 💌</button>
+    <div class="resultado" id="salida"></div>
+    <div class="footer-note">01010100 01100101 00100000 01100001 01101101 01101111</div>
+  </div>
+
+  <script>
+    // Diccionario personalizado
+    const dic = {
+      "ábreme":"101011110101",
+      "abreme":"101011110101",
+      "ÁBREME":"101011110101",
+      "ABREME":"101011110101",
+      "Zanahorias":"14337",
+      "zanahorias":"14337",
+      "musiquita": "101101011",
+      "cartitas": "11011110010",
+      "momentitos": "10011011011",
+      "canciones": "10101100101",
+      "primaveral": "11100101010",
+      "car's outside": "110101100111",
+      "reloj ingrato": "101110011010",
+      "love someone": "111010011100",
+      "contigo": "10100111101",
+      "química mayor": "110011101011",
+      "cuando estoy con él": "111100101010"
+    };
+
+    // Diccionario invertido (para binario → palabra)
+    const dicInverso = Object.fromEntries(
+      Object.entries(dic).map(([k,v]) => [v,k])
+    );
+
+    function traducir() {
+      const modo = document.getElementById("modo").value;
+      const entrada = document.getElementById("entrada").value.trim().toLowerCase();
+      let salida = "";
+
+      if (modo === "1") {
+        // Palabra → binario
+        salida = dic[entrada] || "❌ No existe en el diccionario";
+      } else {
+        // Binario → palabra
+        salida = dicInverso[entrada] || "❌ No existe en el diccionario";
+      }
+
+      document.getElementById("salida").innerText = salida;
+    }
+  </script>
+</body>
+</html>
